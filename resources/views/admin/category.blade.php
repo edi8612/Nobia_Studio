@@ -47,10 +47,6 @@
 <!-- Sidebar Navigation-->
 @include('admin.sidebar')
 
-
-
-
-
 <!-- Sidebar Navigation end-->
 <div class="page-content">
     <div class="page-header">
@@ -76,6 +72,7 @@
             <div>
                 <table class="table_deg">
                     <tr>
+                        <th>Category ID</th>
                         <th>Category Name</th>
                         <th>Edit</th>
                         <th>Delete</th>
@@ -83,10 +80,23 @@
 
                     @foreach($data as $category_data)
                         <tr>
+                            <td>{{$category_data->id}}</td>
                             <td>{{$category_data->name}}</td>
-                            <td><a class="btn btn-success" href="{{url('edit_category',$category_data->id)}}">Edit</a></td>
-                            <td><a class="btn btn-danger" onclick="confirmation(event)"
-                                   href="{{url('delete_category',$category_data->id)}}">Delete</a></td>
+                            <td><a class="btn btn-success" href="{{url('edit_category',$category_data->id)}}">Edit</a>
+                            </td>
+                            <td>
+
+                                {{--                                <a class="btn btn-danger" onclick="confirmation(event)"--}}
+                                {{--                                   href="{{url('delete_category',$category_data->id)}}">Delete</a>--}}
+
+
+                                <form action="{{ url('delete_category',$category_data->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+
+                            </td>
                         </tr>
                     @endforeach
 
